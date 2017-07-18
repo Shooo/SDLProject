@@ -18,9 +18,10 @@ all: $(EXE)
 $(EXE): $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-#	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	$(CC) -c -o $@ $< $(CPPFLAGS) $(CFLAGS)
 
+$(OBJ_DIR):
+	mkdir -p $@
 clean:
 	rm -f $(EXE) $(OBJ)
