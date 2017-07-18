@@ -5,14 +5,9 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
+#include <SDL2/SDL.h>
 #include <string>
 #include <map>
-
-struct SDL_Window;
-struct SDL_Renderer;
-struct SDL_Surface;
-struct SDL_Texture;
-struct SDL_Rect;
 
 class Graphics{
 public:
@@ -20,10 +15,12 @@ public:
 	 * Initializes window and renderer
 	 */
 	Graphics();
+
 	/* Destructor
 	 * Destroys window and renderer
 	 */
 	~Graphics();
+
 	/* SDL_Surface* loadImage
 	 * Loads a SDL_Surface from a given image file
 	 *
@@ -31,6 +28,7 @@ public:
 	 * @return pointer to the image as a new SDL_Surface
 	 */
 	SDL_Surface* loadImage(std::string filePath);
+
 	/* void blitSurface
 	 * Copies the texture of source rectangle onto the destination rectangle
 	 *
@@ -38,7 +36,10 @@ public:
 	 * @param sourceRect the source rectangle to copy
 	 * @param destRect the destination rectangle to copy the source rectangle onto
 	 */
-	void blitSurface(SDL_Texture* texture, SDL_Rect* sourceRect, SDL_Rect* destRect);
+	void blit(SDL_Texture* texture, SDL_Rect* sourceRect, SDL_Rect* destRect);
+
+	void blit(SDL_Texture* texture, SDL_Rect* sourceRect, SDL_Rect* destRect,
+				double angle, SDL_Point* center, SDL_RendererFlip flip);
 	/* void clear
 	 * Clears the renderer
 	 */

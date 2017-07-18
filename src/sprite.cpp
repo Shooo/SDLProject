@@ -11,7 +11,10 @@ Sprite::~Sprite(){
 }
 
 Sprite::Sprite(Graphics &graphics, std::string filePath, int sourceX,
-			int sourceY, int width, int height){
+			int sourceY, int width, int height) : 
+	flip(SDL_FLIP_NONE),
+	angle(0)
+{
 	sourceRect.x = sourceX;
 	sourceRect.y = sourceY;
 	sourceRect.w = width;
@@ -22,5 +25,5 @@ Sprite::Sprite(Graphics &graphics, std::string filePath, int sourceX,
 
 void Sprite::draw(Graphics &graphics, int x, int y){
 	SDL_Rect destRect = {x, y, sourceRect.w, sourceRect.h};
-	graphics.blitSurface(spriteSheet, &sourceRect, &destRect);
+	graphics.blit(spriteSheet, &sourceRect, &destRect);
 }

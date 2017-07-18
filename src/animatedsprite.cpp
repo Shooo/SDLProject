@@ -38,7 +38,7 @@ void AnimatedSprite::update(int elapsedTime){
 	if(timeElapsed > timeToUpdate){
 		timeElapsed -= timeToUpdate;
 		// if current frame index is not at the last frame, move to next frame
-		if((unsigned)frameIndex < animations[currentAnimation].size() - 1){
+		if((unsigned)frameIndex < animations[currentAnimation].frames.size() - 1){
 			frameIndex++;
 		}
 		else{
@@ -50,13 +50,14 @@ void AnimatedSprite::update(int elapsedTime){
 	}
 }
 
-void AnimatedSprite::addAnimation(std::string animation, int frames, int x, int y, int width, int height){
+void AnimatedSprite::addAnimation(std::string animation, int frames, int x, int y, int width, int height, SDL_RendererFlip flip){
 	std::vector<SDL_Rect> rectangles;
 	for(int i = 0; i < frames; i++){
 		SDL_Rect rect = {x + (width * i), y, width, height};
 		rectangles.push_back(rect);
 	}
-	animations[animation] = rectangles;
+	animations[animation].frames = rectangles;
+	animations[animation].flip = flip;
 }
 
 void AnimatedSprite::setTimeToUpdate(int updateTime){
@@ -66,7 +67,7 @@ void AnimatedSprite::setTimeToUpdate(int updateTime){
 void AnimatedSprite::draw(Graphics &graphics, int x, int y){
 	if(isVisible){
 		SDL_Rect destRect = {x, y, sourceRect.w * constants::SPRITE_SCALE, sourceRect.h * constants::SPRITE_SCALE};
-		graphics.blitSurface(spriteSheet, &animations[currentAnimation][frameIndex],&destRect);
+		graphics.blit(spriteSheet, &animations[currentAnimation].frames[frameIndex], &destRect, 0.0, NULL, animations[currentAnimation].flip);
 	}
 }
 

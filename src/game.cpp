@@ -29,7 +29,7 @@ void Game::gameLoop(){
 	int lastUpdateTime = SDL_GetTicks();
 
 	AnimatedSprite sprite(graphics, filePath, 0,0,64,64,100);
-	sprite.addAnimation("test",10,0,200,64,64);
+	sprite.addAnimation("test",10,0,200,64,64, SDL_FLIP_HORIZONTAL);
 
 	while(true){
 		input.beginNewFrame();

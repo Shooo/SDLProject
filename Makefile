@@ -11,8 +11,6 @@ CPPFLAGS = -Iinclude
 CFLAGS = -Wall
 LDFLAGS = -lSDL2 -lSDL2main -lSDL2_image
 
-.PHONY: all clean
-
 all: $(EXE)
 
 $(EXE): $(OBJ)

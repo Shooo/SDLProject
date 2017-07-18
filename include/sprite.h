@@ -24,8 +24,6 @@ public:
 	 * @param sourceY the y position on spritesheet for the source rectangle
 	 * @param width the width of the source rectangle
 	 * @param height the height of the source rectangle
-	 * @param posX
-	 * @param posY
 	 */
 	Sprite(Graphics &graphics, std::string filePath, int sourceX,
 			int sourceY, int width, int height);
@@ -45,6 +43,10 @@ public:
 protected:
 	SDL_Texture* spriteSheet;
 	SDL_Rect sourceRect;
+private:
+	SDL_Point center;
+	SDL_RendererFlip flip;
+	double angle;
 };
 
 #endif

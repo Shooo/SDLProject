@@ -66,7 +66,7 @@ public:
 	 * @param width the width of each frame
 	 * @param width the height of each frame
 	 */
-	void addAnimation(std::string animation, int frames, int x, int y, int width, int height);
+	void addAnimation(std::string animation, int frames, int x, int y, int width, int height, SDL_RendererFlip flip);
 
 	/* void setTimeToUpdate
 	 * Sets the time required for animation to update to next frame
@@ -93,11 +93,17 @@ private:
 	 */
 	void setVisible(bool visible);
 
+	struct animation{
+		std::vector<SDL_Rect> frames;
+		SDL_RendererFlip flip;
+	};
+
 	bool isVisible;
 	bool playAnimationOnce;
 	int timeToUpdate;
 	std::string currentAnimation;
-	std::map<std::string, std::vector<SDL_Rect> > animations;
+//	std::map<std::string, std::vector<SDL_Rect> > animations;
+	std::map<std::string, animation> animations;
 	int frameIndex;
 	int timeElapsed;
 };
