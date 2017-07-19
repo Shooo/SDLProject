@@ -1,7 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
-class Graphics;
+#include "player.h"
+#include "input.h"
+#include "graphics.h"
+
 
 class Game{
 public:
@@ -10,7 +13,9 @@ public:
 private:
 	void gameLoop();
 	void draw(Graphics& graphics);
-	void update(float elapsedTime);
+	void update(int elapsedTime);
+	
+	Player player;
 };
 
 

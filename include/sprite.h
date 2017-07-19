@@ -40,6 +40,8 @@ public:
 	 */
 	void draw(Graphics& graphics, int x, int y);
 
+	SDL_Texture* getSpriteSheet();
+
 protected:
 	SDL_Texture* spriteSheet;
 	SDL_Rect sourceRect;

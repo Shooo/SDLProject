@@ -27,3 +27,7 @@ void Sprite::draw(Graphics &graphics, int x, int y){
 	SDL_Rect destRect = {x, y, sourceRect.w, sourceRect.h};
 	graphics.blit(spriteSheet, &sourceRect, &destRect);
 }
+
+SDL_Texture* Sprite::getSpriteSheet(){
+	return spriteSheet;
+}

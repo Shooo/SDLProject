@@ -1,5 +1,5 @@
 /* shared.h
- * Holds constants, enumerations and structures that are shared between many files
+ * Holds constants that are shared between many files
  *
  */
 #ifndef SHARED_H

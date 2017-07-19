@@ -38,6 +38,16 @@ public:
 	 */
 	void blit(SDL_Texture* texture, SDL_Rect* sourceRect, SDL_Rect* destRect);
 
+	/* override void blitSurface
+	 * Copies texture of source to destination with ability to flip and rotate the texture
+	 *
+	 * @param texture the texture to copy
+	 * @param sourceRect the source rectangle to copy
+	 * @param destRect the destination rectangle to copy the source rectangle onto
+	 * @param angle the angle in degrees indicating the rotation applied to destination rectangle
+	 * @param center point indicating point around which destRect will be rotated (NULL defaults to width/2, height/2 of destRect)
+	 * @param flip the flipping action to perform onto texture
+	 */
 	void blit(SDL_Texture* texture, SDL_Rect* sourceRect, SDL_Rect* destRect,
 				double angle, SDL_Point* center, SDL_RendererFlip flip);
 	/* void clear
