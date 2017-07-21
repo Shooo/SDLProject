@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "animatedsprite.h"
+#include "shared.h"
 
 struct Vector2;
 class Graphics;
@@ -20,6 +21,7 @@ private:
 	float dx, dy;
 	float x, y;
 	float walkSpeed;
+	directions::Direction direction;
 
 };
 

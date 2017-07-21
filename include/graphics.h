@@ -50,14 +50,17 @@ public:
 	 */
 	void blit(SDL_Texture* texture, SDL_Rect* sourceRect, SDL_Rect* destRect,
 				double angle, SDL_Point* center, SDL_RendererFlip flip);
+
 	/* void clear
 	 * Clears the renderer
 	 */
 	void clear();
+
 	/* void present
 	 * Presents content on backbuffer onto screen
 	 */
 	void present();
+
 	/* SDL_Renderer* getRenderer
 	 * Gets the renderer
 	 *

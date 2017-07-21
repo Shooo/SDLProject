@@ -11,4 +11,12 @@ namespace constants{
 	const int SPRITE_SCALE = 2;
 };
 
+namespace directions{
+	enum Direction{
+		LEFT,
+		RIGHT,
+		UP,
+		DOWN
+	};
+};
 #endif
