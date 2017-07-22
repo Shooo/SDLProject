@@ -13,9 +13,10 @@ public:
 private:
 	void gameLoop();
 	void draw(Graphics& graphics);
-	void update(int elapsedTime);
+	void update(double elapsedTime);
 	
 	Player player;
+	bool gameIsRunning;
 };
 
 

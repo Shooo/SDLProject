@@ -45,7 +45,7 @@ public:
 	 *
 	 * @param elapsedTime the time that has elapsed since last update
 	 */
-	void update(int elapsedTime);
+	void update(double elapsedTime);
 
 	/* void draw
 	 * Draws current animations current frame onto the backbuffer of renderer at x,y
@@ -100,12 +100,12 @@ private:
 
 	bool isVisible;
 	bool playAnimationOnce;
-	int timeToUpdate;
+	double timeToUpdate;
 	std::string currentAnimation;
 //	std::map<std::string, std::vector<SDL_Rect> > animations;
 	std::map<std::string, animation> animations;
 	int frameIndex;
-	int timeElapsed;
+	double timeElapsed;
 };
 
 

@@ -10,11 +10,13 @@
 #include "../include/vector2.h"
 
 namespace{
-	const int FPS = 50;
-	const int MAX_FRAME_TIME = 5 * 1000 / FPS;
+	const int FPS = 60;
+	const int MAX_FRAME_TIME = 1000 / FPS;
 }
 
-Game::Game(){
+Game::Game() :
+gameIsRunning(true)
+{
 	SDL_Init(SDL_INIT_EVERYTHING);
 	gameLoop();
 }
@@ -27,9 +29,14 @@ void Game::gameLoop(){
 	Input input;
 	Graphics graphics;
 	player = Player(graphics, Vector2(100,100));
-	int lastUpdateTime = SDL_GetTicks();
+	double lastTime = SDL_GetTicks();
+	double lag = 0.0;
 
-	while(true){
+	while(gameIsRunning){
+		double currentTime = SDL_GetTicks();
+		double elapsedTime = currentTime - lastTime;
+		lastTime = currentTime;
+		lag += elapsedTime;
 		input.beginNewFrame();
 		SDL_PollEvent(&event);
 		if(event.type == SDL_KEYDOWN){
@@ -45,7 +52,8 @@ void Game::gameLoop(){
 		}
 		if(input.wasKeyPressed(SDL_SCANCODE_ESCAPE)){
 			printf("Exiting...\n");
-			return;
+			gameIsRunning = false;
+			continue;
 		}
 		else if(input.isKeyHeld(SDL_SCANCODE_LEFT)){
 			player.moveLeft();
@@ -56,12 +64,11 @@ void Game::gameLoop(){
 		if(!input.isKeyHeld(SDL_SCANCODE_RIGHT) && !input.isKeyHeld(SDL_SCANCODE_LEFT)){
 			player.stopMoving();
 		}
-
-	int currentTime = SDL_GetTicks();
-	int elapsedTime = currentTime - lastUpdateTime;
-	update(std::min(elapsedTime,MAX_FRAME_TIME));
-	lastUpdateTime = currentTime;
-	draw(graphics);
+		while(lag >= MAX_FRAME_TIME){
+			update(MAX_FRAME_TIME);
+			lag -= MAX_FRAME_TIME;
+		}
+		draw(graphics);
 	}
 }
 
@@ -71,6 +78,6 @@ void Game::draw(Graphics& graphics){
 	graphics.present();
 }
 
-void Game::update(int elapsedTime){
+void Game::update(double elapsedTime){
 	player.update(elapsedTime);
 }

@@ -12,7 +12,7 @@ public:
 	Player();
 	Player(Graphics &graphics, Vector2 spawnPoint);
 	void draw(Graphics &graphics);
-	void update(int elapsedTime);
+	void update(double elapsedTime);
 	void moveLeft();
 	void moveRight();
 	void stopMoving();

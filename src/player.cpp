@@ -19,7 +19,7 @@ Player::Player(Graphics &graphics, Vector2 spawnPoint) :
 	sprite.addAnimation("idleLeft",4,0,8,64,64,SDL_FLIP_HORIZONTAL);
 	sprite.addAnimation("runRight",8,0,72,64,64,SDL_FLIP_NONE);
 	sprite.addAnimation("runLeft",8,0,72,64,64,SDL_FLIP_HORIZONTAL);
-	sprite.playAnimation("runRight",false);
+	sprite.playAnimation("idleLeft",false);
 }
 
 void Player::moveRight(){
@@ -44,7 +44,7 @@ void Player::stopMoving(){
 	}
 }
 
-void Player::update(int elapsedTime){
+void Player::update(double elapsedTime){
 	x += dx * elapsedTime;
 	sprite.update(elapsedTime);
 }
