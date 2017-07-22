@@ -40,6 +40,11 @@ public:
 	 */
 	void draw(Graphics& graphics, int x, int y);
 
+	/* SDL_Texture* getSpriteSheet
+	 * Gets the loaded spritesheet
+	 *
+	 * @return the spritesheet
+	 */
 	SDL_Texture* getSpriteSheet();
 
 protected:

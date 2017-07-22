@@ -102,7 +102,6 @@ private:
 	bool playAnimationOnce;
 	double timeToUpdate;
 	std::string currentAnimation;
-//	std::map<std::string, std::vector<SDL_Rect> > animations;
 	std::map<std::string, animation> animations;
 	int frameIndex;
 	double timeElapsed;
