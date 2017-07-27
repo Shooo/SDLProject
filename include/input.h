@@ -1,7 +1,6 @@
 /* 
  * input.h
  * Handles input logic
- * Stores and clears scancodes from SDL_Events in map
  */
 
 #ifndef INPUT_H
