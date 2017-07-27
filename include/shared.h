@@ -7,8 +7,8 @@
 
 namespace constants{
 	const int SCREEN_WIDTH = 640;
-	const int SCREEN_HEIGHT = 480;
-	const int SPRITE_SCALE = 2;
+	const int SCREEN_HEIGHT = 512;
+	const int SPRITE_SCALE = 1;
 };
 
 namespace directions{

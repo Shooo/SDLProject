@@ -23,7 +23,7 @@ public:
 	Player(Graphics &graphics, Vector2 spawnPoint);
 
 	/* void draw
-	 * Draws the player sprite onto the render at its current x,y position
+	 * Renders sprite at its current x,y position
 	 *
 	 * @param graphics the graphics object used for rendering
 	 */

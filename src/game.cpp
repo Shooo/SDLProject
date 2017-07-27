@@ -8,6 +8,7 @@
 #include "../include/animatedsprite.h"
 #include "../include/player.h"
 #include "../include/vector2.h"
+#include "../include/level.h"
 
 namespace{
 	const int FPS = 60;
@@ -28,7 +29,8 @@ void Game::gameLoop(){
 	SDL_Event event;
 	Input input;
 	Graphics graphics;
-	player = Player(graphics, Vector2(100,100));
+	level = Level("content/maps/map1.tmx",graphics);
+	player = Player(graphics, Vector2(0,0));
 	double lastTime = SDL_GetTicks();
 	double lag = 0.0;
 
@@ -74,6 +76,7 @@ void Game::gameLoop(){
 
 void Game::draw(Graphics& graphics){
 	graphics.clear();
+	level.draw(graphics);
 	player.draw(graphics);
 	graphics.present();
 }

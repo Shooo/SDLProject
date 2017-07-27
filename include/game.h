@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "player.h"
+#include "level.h"
 #include "input.h"
 #include "graphics.h"
 
@@ -16,6 +17,7 @@ private:
 	void update(double elapsedTime);
 	
 	Player player;
+	Level level;
 	bool gameIsRunning;
 };
 
