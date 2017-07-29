@@ -33,7 +33,6 @@ void AnimatedSprite::playAnimation(std::string animation, bool playOnce){
 
 void AnimatedSprite::update(double elapsedTime){
 	timeElapsed += elapsedTime;
-
 	// if elapsed time exceeded set update time, update frame
 	if(timeElapsed > timeToUpdate){
 		timeElapsed -= timeToUpdate;

@@ -29,8 +29,8 @@ void Game::gameLoop(){
 	SDL_Event event;
 	Input input;
 	Graphics graphics;
-	level = Level("content/maps/map1.tmx",graphics);
-	player = Player(graphics, Vector2(0,0));
+	level = Level("content/maps/rpgmap1.tmx",graphics);
+	player = Player(graphics, Vector2(200,200));
 	double lastTime = SDL_GetTicks();
 	double lag = 0.0;
 
@@ -57,13 +57,22 @@ void Game::gameLoop(){
 			gameIsRunning = false;
 			continue;
 		}
-		else if(input.isKeyHeld(SDL_SCANCODE_LEFT)){
+		if(input.isKeyHeld(SDL_SCANCODE_LEFT)){
 			player.moveLeft();
 		}
 		else if(input.isKeyHeld(SDL_SCANCODE_RIGHT)){
 			player.moveRight();
 		}
-		if(!input.isKeyHeld(SDL_SCANCODE_RIGHT) && !input.isKeyHeld(SDL_SCANCODE_LEFT)){
+		else if(input.isKeyHeld(SDL_SCANCODE_UP)){
+			player.moveUp();
+		}
+		else if(input.isKeyHeld(SDL_SCANCODE_DOWN)){
+			player.moveDown();
+		}
+		if(!input.isKeyHeld(SDL_SCANCODE_RIGHT) &&
+		!input.isKeyHeld(SDL_SCANCODE_LEFT) &&
+		!input.isKeyHeld(SDL_SCANCODE_UP) &&
+		!input.isKeyHeld(SDL_SCANCODE_DOWN)){
 			player.stopMoving();
 		}
 		while(lag >= MAX_FRAME_TIME){
@@ -78,9 +87,20 @@ void Game::draw(Graphics& graphics){
 	graphics.clear();
 	level.draw(graphics);
 	player.draw(graphics);
+	// SDL_SetRenderDrawColor(graphics.getRenderer(), 255, 0, 0, 50);
+	// BoundingBox testBox = player.getBoundingBox();
+	// SDL_Rect rect = {testBox.getX(), testBox.getY(), testBox.getWidth(), testBox.getHeight()};
+	// SDL_RenderFillRect(graphics.getRenderer(), &rect);
 	graphics.present();
 }
 
 void Game::update(double elapsedTime){
-	player.update(elapsedTime);
+	player.updateX(elapsedTime);
+	if(level.isColliding(player.getBoundingBox())){
+		player.handleXCollisions();	
+	}
+	player.updateY(elapsedTime);
+	if(level.isColliding(player.getBoundingBox())){
+		player.handleYCollisions();
+	}
 }

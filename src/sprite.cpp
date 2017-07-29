@@ -1,5 +1,6 @@
 #include "../include/sprite.h"
 #include "../include/graphics.h"
+#include "../include/shared.h"
 
 
 Sprite::Sprite(){

@@ -2,6 +2,8 @@
 #define PLAYER_H
 
 #include "animatedsprite.h"
+#include "boundingbox.h"
+#include "vector2.h"
 #include "shared.h"
 
 struct Vector2;
@@ -34,7 +36,9 @@ public:
 	 *
 	 * @param elapsedTime the time elapsed since last update in loop
 	 */
-	void update(double elapsedTime);
+	void updateX(double elapsedTime);
+
+	void updateY(double elapsedTime);
 
 	/* void moveLeft
 	 * Moves the player to the left x position and plays set animation
@@ -46,16 +50,32 @@ public:
 	 */
 	void moveRight();
 
+	void moveUp();
+
+	void moveDown();
+
 	/* void stopMoving
 	 * Stops the player from moving and plays set animation
 	 */
 	void stopMoving();
+
+	BoundingBox getBoundingBox();
+
+	void handleXCollisions();
+
+	void handleYCollisions();
+
+
 private:
 	AnimatedSprite sprite;
 	float dx, dy;
 	float x, y;
 	float walkSpeed;
+	float gravity;
 	directions::Direction direction;
+	BoundingBox bBox;
+	Vector2 bBoxOffset;
+	Vector2 lastPosition;
 
 };
 
