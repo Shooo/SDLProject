@@ -41,6 +41,7 @@ void Level::loadMap(std::string mapName, Graphics &graphics){
 		parseTilesets(tilesetElement, graphics);
 	}
 
+	// Processing layers
 	XMLElement* layerElement = mapElement->FirstChildElement("layer");
 	if(layerElement){
 		while(layerElement){
@@ -48,6 +49,7 @@ void Level::loadMap(std::string mapName, Graphics &graphics){
 			XMLElement* dataElement = layerElement->FirstChildElement("data");
 			if(dataElement){
 				while(dataElement){
+					// Process tiles
 					XMLElement* tileElement = dataElement->FirstChildElement("tile");
 					if(tileElement){
 						if(strcmp(name,"background") == 0){
@@ -112,6 +114,8 @@ void Level::parseTiles(tinyxml2::XMLElement* tileElement, std::vector<Tile> &til
 
 			int tilesetWidth, tilesetHeight;
 			SDL_QueryTexture(tileset.texture, NULL, NULL, &tilesetWidth, &tilesetHeight);
+			// gid - tileset.firstgid gives the id of tile relative to its own tileset 
+			// note that tielsetWidth is in number of pixels where as width is in number of tiles
 			int tilesetX = ((gid - tileset.firstgid)  * tilewidth) % tilesetWidth;
 			int tilesetY = (((gid - tileset.firstgid) * tilewidth) / tilesetWidth) * tileheight;
 			Vector2 tilesetPosition = Vector2(tilesetX, tilesetY);
@@ -129,9 +133,8 @@ void Level::parseCollisions(tinyxml2::XMLElement* tileElement, std::vector<Bound
 	while(tileElement){
 		int gid = tileElement->IntAttribute("gid");
 		if(gid > 0){
-			int x = (tileCounter % width) * (tilewidth * constants::SPRITE_SCALE);
-			int y = (tileCounter / width) * (tileheight * constants::SPRITE_SCALE);
-			// printf("x: %d, y: %d, tilewidth: %d, tileheight: %d\n", x, y, tilewidth * 2, tileheight * 2);
+			int x = ((tileCounter % width) * tilewidth) * constants::SPRITE_SCALE;
+			int y = ((tileCounter / width) * tileheight) * constants::SPRITE_SCALE;
 			BoundingBox box(x, y, tilewidth * constants::SPRITE_SCALE,tileheight * constants::SPRITE_SCALE);
 			collisions.push_back(box);
 		}

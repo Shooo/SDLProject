@@ -57,16 +57,22 @@ void Game::gameLoop(){
 			gameIsRunning = false;
 			continue;
 		}
+		if(input.isKeyHeld(SDL_SCANCODE_LSHIFT)){
+			player.toggleSprint(true);
+		}
+		else {
+			player.toggleSprint(false);
+		}
 		if(input.isKeyHeld(SDL_SCANCODE_LEFT)){
 			player.moveLeft();
 		}
-		else if(input.isKeyHeld(SDL_SCANCODE_RIGHT)){
+		if(input.isKeyHeld(SDL_SCANCODE_RIGHT)){
 			player.moveRight();
 		}
-		else if(input.isKeyHeld(SDL_SCANCODE_UP)){
+		if(input.isKeyHeld(SDL_SCANCODE_UP)){
 			player.moveUp();
 		}
-		else if(input.isKeyHeld(SDL_SCANCODE_DOWN)){
+		if(input.isKeyHeld(SDL_SCANCODE_DOWN)){
 			player.moveDown();
 		}
 		if(!input.isKeyHeld(SDL_SCANCODE_RIGHT) &&
@@ -87,10 +93,13 @@ void Game::draw(Graphics& graphics){
 	graphics.clear();
 	level.draw(graphics);
 	player.draw(graphics);
-	// SDL_SetRenderDrawColor(graphics.getRenderer(), 255, 0, 0, 50);
+	
+	// Uncomment to test the players bounding box
+	// SDL_SetRenderDrawColor(graphics.getRenderer(), 255, 0, 0, 255);
 	// BoundingBox testBox = player.getBoundingBox();
 	// SDL_Rect rect = {testBox.getX(), testBox.getY(), testBox.getWidth(), testBox.getHeight()};
 	// SDL_RenderFillRect(graphics.getRenderer(), &rect);
+
 	graphics.present();
 }
 

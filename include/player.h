@@ -50,8 +50,14 @@ public:
 	 */
 	void moveRight();
 
+	/* void moveUp
+	 * Moves the player to the uppper y position and plays set animation
+	 */
 	void moveUp();
 
+	/* void moveDown
+	 * Moves the player to the lower y position and plays set animation
+	 */
 	void moveDown();
 
 	/* void stopMoving
@@ -59,10 +65,28 @@ public:
 	 */
 	void stopMoving();
 
+	/* void toggleSprint
+	 * Increases the player's walk speed if sprint is true
+	 *
+	 * @param sprint set to true to increase player's walk speed
+	 */
+	void toggleSprint(bool sprint);
+
+	/* BoundingBox getBoundingBox
+	 * Returns the boundin box of the player
+	 *
+	 * @return the bounding box of the player
+	 */
 	BoundingBox getBoundingBox();
 
+	/* void handleXCollisions
+	 * Handle the collision logic of the x axis
+	 */
 	void handleXCollisions();
 
+	/* void handleYCollisions
+	 * Handle the collision logic of the y axis
+	 */
 	void handleYCollisions();
 
 
@@ -72,10 +96,14 @@ private:
 	float x, y;
 	float walkSpeed;
 	float gravity;
+	int spriteWidth, spriteHeight;
 	directions::Direction direction;
 	BoundingBox bBox;
+	int bBoxWidth;
+	int bBoxHeight;
 	Vector2 bBoxOffset;
 	Vector2 lastPosition;
+	bool isSprinting;
 
 };
 

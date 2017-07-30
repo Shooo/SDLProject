@@ -18,6 +18,7 @@ public:
 	 */
 	Level();
 
+
 	/* Constructor
 	 * Initializes and loads map
 	 *
@@ -65,14 +66,27 @@ private:
 	void parseTilesets(tinyxml2::XMLElement* tilesetElement, Graphics &graphics);
 
 	/* void parseTiles
-	 * parses given tile element and following tileset elements of a tmx map
+	 * parses tile elements of a layer and fills the tiles' information in given Tile vector
 	 *
-	 * @param tileElement the tile element to parse
+	 * @param tileElement the first tile element to parse
+	 * @param tiles the vector to fill with tile information
 	 */
 	void parseTiles(tinyxml2::XMLElement* tileElement, std::vector<Tile> &tiles);
 
+	/* void parseCollisions
+	 * parses tile elements of a collision layer and fills the tiles' information in a given collision vector
+	 *
+	 * @param tileElement the first tile element to parse
+	 * @param collisions the vector to fill with collision tile information
+	 */
 	void parseCollisions(tinyxml2::XMLElement* tileElement, std::vector<BoundingBox> &collisions);
 
+	/* void drawTiles
+	 * Renders the tiles in a given Tile vector onto the screen
+	 *
+	 * @param graphics the graphics object used for handling rendering
+	 * @param tiles the Tile vector to draw on screen
+	 */
 	void drawTiles(Graphics &graphics, std::vector<Tile> &tiles);
 
 	std::string mapName;

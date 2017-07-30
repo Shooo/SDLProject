@@ -1,3 +1,7 @@
+/* vector2.h
+ * Structure to represent x, y coordinates
+ */
+
 #ifndef VECTOR2_H
 #define VECTOR2_H
 

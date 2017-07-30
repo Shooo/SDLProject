@@ -1,5 +1,5 @@
 /* graphics.h
- * Handles logic of drawing on renderer and presenting on screen
+ * Handles rendering logic
  *
  */
 #ifndef GRAPHICS_H

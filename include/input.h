@@ -37,6 +37,7 @@ public:
 	 * returns boolean value of if key was pressed
 	 *
 	 * @param key the key you want the value of
+	 * @return true if key was pressed
 	 */
 	bool wasKeyPressed(SDL_Scancode key);
 
@@ -44,6 +45,7 @@ public:
 	 * returns boolean value of if key was released
 	 *
 	 * @param key the key you want the value of
+	 * @return true if key was released
 	 */
 	bool wasKeyReleased(SDL_Scancode key);
 
@@ -51,6 +53,7 @@ public:
 	 * returns boolean value of if key is held
 	 *
 	 * @param key the key you want the value of
+	 * @return true if key is held
 	 */
 	bool isKeyHeld(SDL_Scancode key);
 
