@@ -72,6 +72,8 @@ public:
 	 */
 	void toggleSprint(bool sprint);
 
+	void setPosition(int newx, int newy);
+
 	/* BoundingBox getBoundingBox
 	 * Returns the boundin box of the player
 	 *

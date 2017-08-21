@@ -6,6 +6,7 @@
 #include "../include/graphics.h"
 #include "../include/tileset.h"
 #include "../include/tile.h"
+#include "../include/door.h"
 #include "../include/shared.h"
 
 
@@ -25,6 +26,7 @@ Level::~Level(){
 
 void Level::loadMap(std::string mapName, Graphics &graphics){
 	XMLDocument doc;
+	mapName = "content/maps/" + mapName + ".tmx";
 	XMLError result = doc.LoadFile(mapName.c_str());
 	XMLCheckResult(result);
 
@@ -66,6 +68,22 @@ void Level::loadMap(std::string mapName, Graphics &graphics){
 				}
 			}
 			layerElement = layerElement->NextSiblingElement("layer");
+		}
+	}
+
+	// Processing object groups
+	XMLElement* objectGroupElement = mapElement->FirstChildElement("objectgroup");
+	if(objectGroupElement){
+		while(objectGroupElement){
+			const char* name = objectGroupElement->Attribute("name");
+			XMLElement* objectElement = objectGroupElement->FirstChildElement("object");
+			if(strcmp(name,"doors") == 0){
+				parseDoors(objectElement);
+			}
+			if(strcmp(name,"spawnpoints") == 0){
+				parseSpawnPoints(objectElement);
+			}
+			objectGroupElement = objectGroupElement->NextSiblingElement("objectgroup");
 		}
 	}
 }
@@ -147,7 +165,52 @@ void Level::parseCollisions(tinyxml2::XMLElement* tileElement, std::vector<Bound
 	}
 }
 
-bool Level::isColliding(BoundingBox box){
+void Level::parseDoors(tinyxml2::XMLElement* objectElement){
+	while(objectElement){
+		float x = objectElement->FloatAttribute("x") * constants::SPRITE_SCALE;
+		float y = objectElement->FloatAttribute("y") * constants::SPRITE_SCALE;
+		float width = objectElement->FloatAttribute("width") * constants::SPRITE_SCALE;
+		float height = objectElement->FloatAttribute("height") * constants::SPRITE_SCALE;
+		const char* tempName = objectElement->Attribute("name");
+		std::string doorName = std::string(tempName);
+		BoundingBox box = BoundingBox(x,y,width,height);
+		std::string destination;
+		XMLElement* propertiesElement = objectElement->FirstChildElement("properties");
+		if(propertiesElement){
+			printf("Theres a properties\n");
+			while(propertiesElement){
+				printf("in properties loop\n");
+				XMLElement* propertyElement = propertiesElement->FirstChildElement("property");
+				if(propertyElement){
+					while(propertyElement){
+						const char* name = propertyElement->Attribute("name");
+						if(strcmp(name,"destination") == 0){
+							const char* value = propertyElement->Attribute("value");
+							destination = std::string(value);
+						}
+						propertyElement = propertyElement->NextSiblingElement("property");
+					}
+				}
+				propertiesElement = propertiesElement->NextSiblingElement("properties");
+			}
+		}
+		Door door = Door(box, destination, doorName);
+		doors.push_back(door);
+		objectElement = objectElement->NextSiblingElement("object");
+	}
+}
+
+void Level::parseSpawnPoints(tinyxml2::XMLElement* objectElement){
+	while(objectElement){
+		float x = objectElement->FloatAttribute("x") * constants::SPRITE_SCALE;
+		float y = objectElement->FloatAttribute("y") * constants::SPRITE_SCALE;
+		const char* name = objectElement->Attribute("name");
+		spawnPoints[std::string(name)] = Vector2(x,y);
+		objectElement = objectElement->NextSiblingElement("object");
+	}
+}
+
+bool Level::isTileColliding(BoundingBox box){
 	std::vector<BoundingBox> collisionBoxes;
 	int leftTile = box.getLeft() / (tilewidth * constants::SPRITE_SCALE);
 	int rightTile = box.getRight() / (tilewidth * constants::SPRITE_SCALE);
@@ -177,6 +240,22 @@ bool Level::isColliding(BoundingBox box){
 		}
 	}
 	return false;
+}
+
+Door Level::getCollidingDoor(BoundingBox box){
+	Door door;
+	for(unsigned int i = 0; i < doors.size(); i++){
+		if(doors[i].getBoundingBox().collidesWith(box)){
+			printf("%s\n",doors[i].getDestination().c_str());
+			door = doors[i];
+			return door;
+		}
+	}
+	return door;
+}
+
+Vector2 Level::getSpawnPoint(std::string name){
+	return spawnPoints[name];
 }
 
 void Level::draw(Graphics &graphics){

@@ -3,11 +3,13 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include "tinyxml2.h"
 #include "tileset.h"
 #include "tile.h"
 #include "boundingbox.h"
+#include "door.h"
 
 class Graphics;
 
@@ -32,15 +34,6 @@ public:
 	 */
 	~Level();
 
-	/* void draw
-	 * Renders the tiles onto screen
-	 *
-	 * @param graphics the graphics object for handling rendering
-	 */
-	void draw(Graphics &graphics);
-
-	bool isColliding(BoundingBox box);
-private:
 
 	/* void loadMap
 	 * Parses and processes the map file
@@ -49,6 +42,20 @@ private:
 	 * @graphics the graphics object used to handle rendering
 	 */
 	void loadMap(std::string mapName, Graphics &graphics);
+
+	/* void draw
+	 * Renders the tiles onto screen
+	 *
+	 * @param graphics the graphics object for handling rendering
+	 */
+	void draw(Graphics &graphics);
+
+	bool isTileColliding(BoundingBox box);
+
+	Door getCollidingDoor(BoundingBox box);
+
+	Vector2 getSpawnPoint(std::string name);
+private:
 
 	/* void XMLCheckResult
 	 * Checks result of tinyxml2 function
@@ -81,6 +88,8 @@ private:
 	 */
 	void parseCollisions(tinyxml2::XMLElement* tileElement, std::vector<BoundingBox> &collisions);
 
+	void parseSpawnPoints(tinyxml2::XMLElement*);
+
 	/* void drawTiles
 	 * Renders the tiles in a given Tile vector onto the screen
 	 *
@@ -89,11 +98,15 @@ private:
 	 */
 	void drawTiles(Graphics &graphics, std::vector<Tile> &tiles);
 
+	void parseDoors(tinyxml2::XMLElement* objectElement);
+
 	std::string mapName;
 	std::vector<Tileset> tilesets;
 	std::vector<Tile> background;
 	std::vector<Tile> foreground;
 	std::vector<BoundingBox> collisions;
+	std::vector<Door> doors;
+	std::map<std::string,Vector2> spawnPoints;
 	
 
 

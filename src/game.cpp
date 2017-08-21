@@ -29,7 +29,7 @@ void Game::gameLoop(){
 	SDL_Event event;
 	Input input;
 	Graphics graphics;
-	level = Level("content/maps/rpgmap1.tmx",graphics);
+	level = Level("rpgmap1",graphics);
 	player = Player(graphics, Vector2(200,200));
 	double lastTime = SDL_GetTicks();
 	double lag = 0.0;
@@ -82,7 +82,7 @@ void Game::gameLoop(){
 			player.stopMoving();
 		}
 		while(lag >= MAX_FRAME_TIME){
-			update(MAX_FRAME_TIME);
+			update(MAX_FRAME_TIME, graphics);
 			lag -= MAX_FRAME_TIME;
 		}
 		draw(graphics);
@@ -103,13 +103,22 @@ void Game::draw(Graphics& graphics){
 	graphics.present();
 }
 
-void Game::update(double elapsedTime){
+void Game::update(double elapsedTime, Graphics& graphics){
+	// Check collision with tiles
 	player.updateX(elapsedTime);
-	if(level.isColliding(player.getBoundingBox())){
+	if(level.isTileColliding(player.getBoundingBox())){
 		player.handleXCollisions();	
 	}
 	player.updateY(elapsedTime);
-	if(level.isColliding(player.getBoundingBox())){
+	if(level.isTileColliding(player.getBoundingBox())){
 		player.handleYCollisions();
+	}
+
+	// Check collision with doors
+	Door door = level.getCollidingDoor(player.getBoundingBox());
+	if(door.getDestination() != ""){
+		level = Level(door.getDestination(), graphics);
+		Vector2 spawnPoint = level.getSpawnPoint(door.getName());
+		player.setPosition(spawnPoint.x,spawnPoint.y);
 	}
 }

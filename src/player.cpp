@@ -97,6 +97,13 @@ void Player::toggleSprint(bool sprint){
 	}
 }
 
+void Player::setPosition(int newx, int newy){
+	x = newx;
+	y = newy;
+	bBox.setX(x + bBoxOffset.x);
+	bBox.setY(y + bBoxOffset.y);
+}
+
 void Player::updateX(double elapsedTime){
 	lastPosition.x = x;
 	x += dx * elapsedTime;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="16" tileheight="16" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="16" tileheight="16" nextobjectid="6">
  <tileset firstgid="1" name="basictiles" tilewidth="16" tileheight="16" tilecount="120">
   <image source="../tilesets/basictiles.png" width="128" height="240"/>
  </tileset>
@@ -342,7 +342,7 @@
    <tile gid="0"/>
    <tile gid="2"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="58"/>
    <tile gid="0"/>
    <tile gid="2"/>
    <tile gid="0"/>
@@ -891,7 +891,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="121"/>
    <tile gid="121"/>
    <tile gid="121"/>
    <tile gid="121"/>
@@ -918,4 +918,16 @@
    <tile gid="121"/>
   </data>
  </layer>
+ <objectgroup name="doors">
+  <object id="1" name="downstairs" x="162" y="18" width="12" height="12">
+   <properties>
+    <property name="destination" value="rpgmap2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="spawnpoints">
+  <object id="5" name="upstairs" x="160" y="35" width="5" height="4.5">
+   <ellipse/>
+  </object>
+ </objectgroup>
 </map>
